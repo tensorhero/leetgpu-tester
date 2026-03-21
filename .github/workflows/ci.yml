@@ -62,16 +62,16 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Checkout solution repository
+      - name: Checkout solution (numba branch)
         uses: actions/checkout@v4
         with:
           repository: tensorhero/leetgpu-solution
           token: ${{ secrets.SOLUTION_REPO_PAT }}
-          path: solution
+          ref: numba
+          path: solution-numba
 
       - name: Run regression tests
         run: |
-          cd solution
           STAGES=(
             # Phase 1: Thread & Memory Model
             map zip guard map-2d broadcast blocks blocks-2d
@@ -81,19 +81,22 @@ jobs:
             relu-kernel softmax-kernel layernorm-kernel cross-entropy-kernel
             attention-kernel transpose
           )
+          LANGUAGES=(numba)
 
           FAILED=()
           TOTAL=0
-          for stage in "${STAGES[@]}"; do
-            TOTAL=$((TOTAL + 1))
-            echo "Testing ${stage}..."
-            if docker run --rm --user $(id -u):$(id -g) -v "$(pwd):/workspace" ghcr.io/tensorhero/leetgpu-tester:test \
-              -s "$stage" -d /workspace; then
-              echo "✓ ${stage} passed"
-            else
-              echo "✗ ${stage} failed"
-              FAILED+=("${stage}")
-            fi
+          for lang in "${LANGUAGES[@]}"; do
+            for stage in "${STAGES[@]}"; do
+              TOTAL=$((TOTAL + 1))
+              echo "Testing ${stage} (${lang})..."
+              if docker run --rm --user $(id -u):$(id -g) -v "$(pwd)/solution-${lang}:/workspace" ghcr.io/tensorhero/leetgpu-tester:test \
+                -s "$stage" -d /workspace; then
+                echo "✓ ${stage} (${lang}) passed"
+              else
+                echo "✗ ${stage} (${lang}) failed"
+                FAILED+=("${stage}:${lang}")
+              fi
+            done
           done
 
           if [ ${#FAILED[@]} -gt 0 ]; then
