@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/tensorhero/leetgpu-tester/internal/stages"
-	tester_utils "github.com/tensorhero/tester-utils"
+	"github.com/tensorhero-cn/leetgpu-tester/internal/stages"
+	tester_utils "github.com/tensorhero-cn/tester-utils"
 )
 
 func main() {

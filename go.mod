@@ -1,8 +1,8 @@
-module github.com/tensorhero/leetgpu-tester
+module github.com/tensorhero-cn/leetgpu-tester
 
 go 1.24
 
-require github.com/tensorhero/tester-utils v1.6.0
+require github.com/tensorhero-cn/tester-utils v1.7.0
 
 require (
 	github.com/creack/pty v1.1.24 // indirect

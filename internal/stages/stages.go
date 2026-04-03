@@ -1,7 +1,7 @@
 package stages
 
 import (
-	"github.com/tensorhero/tester-utils/tester_definition"
+	"github.com/tensorhero-cn/tester-utils/tester_definition"
 )
 
 // GetDefinition returns the TesterDefinition for the leetgpu course.
