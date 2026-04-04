@@ -52,14 +52,14 @@ jobs:
           platforms: linux/amd64
           push: false
           load: true
-          tags: ghcr.io/tensorhero-cn/leetgpu-tester:test
+          tags: ghcr.io/bootcraft-cn/leetgpu-tester:test
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Checkout solution (numba branch)
         uses: actions/checkout@v4
         with:
-          repository: tensorhero-cn/leetgpu-solution
+          repository: bootcraft-cn/leetgpu-solution
           token: ${{ secrets.SOLUTION_REPO_PAT }}
           ref: numba
           path: solution-numba
@@ -83,7 +83,7 @@ jobs:
             for stage in "${STAGES[@]}"; do
               TOTAL=$((TOTAL + 1))
               echo "Testing ${stage} (${lang})..."
-              if docker run --rm --user $(id -u):$(id -g) -v "$(pwd)/solution-${lang}:/workspace" ghcr.io/tensorhero-cn/leetgpu-tester:test \
+              if docker run --rm --user $(id -u):$(id -g) -v "$(pwd)/solution-${lang}:/workspace" ghcr.io/bootcraft-cn/leetgpu-tester:test \
                 -s "$stage" -d /workspace; then
                 echo "✓ ${stage} (${lang}) passed"
               else

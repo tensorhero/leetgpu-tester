@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/tensorhero-cn/leetgpu-tester/internal/helpers"
-	"github.com/tensorhero-cn/tester-utils/runner"
-	"github.com/tensorhero-cn/tester-utils/test_case_harness"
-	"github.com/tensorhero-cn/tester-utils/tester_definition"
+	"github.com/bootcraft-cn/leetgpu-tester/internal/helpers"
+	"github.com/bootcraft-cn/tester-utils/runner"
+	"github.com/bootcraft-cn/tester-utils/test_case_harness"
+	"github.com/bootcraft-cn/tester-utils/tester_definition"
 )
 
 func e01MapTestCase() tester_definition.TestCase {
